@@ -2,8 +2,12 @@
 
 <%= form_for @order, method: :post, url: order_confirm_path do |f| %>
     <h2>支払い方法</h2>
-      <%= f.radio_button :payment_method, :クレジットカード %>
-      <%= f.radio_button :payment_method, :現金 %>
+    <label>
+      <%= f.radio_button :payment_method, :クレジットカード %>クレジットカード
+    </label>
+    <label>
+      <%= f.radio_button :payment_method, :現金 %>現金
+    </label>
 
     <h2>お届け先</h2>
     <p>ご自身の住所</p>
@@ -12,17 +16,16 @@
       <%= f.hidden_field :order_name, :value => @order %>
 
     <p>登録済住所から選択</p>
-      <% @order.customer.shipping_addresses.each do |s| %>
-        <%= s.postal_code %>
-        <%= s.adress %>
-        <%= s.name %>
-      <% end %>
+    
+    <%= f.collection_select(:order_address, ShippingAddress.all, :order_address, :name) %>
+
+    <p>【検討中】</p>
 
     <p>新しいお届け先</p>
     <p>郵便番号(ハイフンなし)</p>
       <%= f.text_field :order_postal_code %>
     <p>住所</p>
-      <%= f.text_field :order_adress %>
+      <%= f.text_field :order_address %>
     <p>宛名</p>
       <%= f.text_field :order_name %>
 
