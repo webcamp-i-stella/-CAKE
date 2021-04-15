@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
+  
+  
   scope module: :public do
+    root 'homes#top'
     resources :products, only: [:index, :show]
     resources :genre, only: [:show]
     resources :orders , except: [:destroy]
     resources :shipping_adress, except: [:new]
     resources :cart_products, only: [:index, :update, :destroy]
-    
-    get 'order/confirm' => 'order#confirm'
+    post 'orders/confirm' => 'orders#confirm'
     get '/customers/my_page' => 'customers#show'
     get '/customers/check' => 'customers#check'
     patch '/customers/withdraw' => 'customers#withdraw'
@@ -20,7 +22,7 @@ Rails.application.routes.draw do
     resources :order_details, only: [:update]
     resources :homes, only: [:top]
   end
-  root 'homes#top'
+  
   devise_for :admin_users
   devise_for :customers
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
