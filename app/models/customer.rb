@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
          has_many :orders
-         has_many :shipping_adresses
+         has_many :shipping_addresses
          has_many :cart_products
 
   validates :postal_code, presence: true
