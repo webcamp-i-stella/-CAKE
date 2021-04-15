@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :orders , except: [:destroy]
     resources :shipping_adress, except: [:new]
     resources :cart_products, only: [:index, :update, :destroy]
+    resource :customers, only: [:edit, :update]
 
     get 'order/confirm' => 'order#confirm'
     get '/customers/my_page' => 'customers#show'
