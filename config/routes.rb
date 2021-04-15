@@ -7,9 +7,10 @@ Rails.application.routes.draw do
     resources :cart_products, only: [:index, :update, :destroy]
     
     get 'order/confirm' => 'order#confirm'
-    get '/customers/:id/check' => 'public/customers#check'
-    patch '/customers/:id/withdraw' => 'public/customers#withdraw'
-    delete '/customers/:id/cart_products/:id' => 'public/cart_products#destroy_all'
+    get '/customers/my_page' => 'customers#show'
+    get '/customers/check' => 'customers#check'
+    patch '/customers/withdraw' => 'customers#withdraw'
+    delete '/customers/cart_products/:id' => 'cart_products#destroy_all'
     get 'homes/about' => 'homes#about'
   end
   namespace :admin do
