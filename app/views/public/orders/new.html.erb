@@ -1,6 +1,6 @@
 <h1>注文情報入力</h1>
 
-<%= form_for @order, method: :post, url: order_confirm_path do |f| %>
+<%= form_for @order, method: :post, url: orders_confirm_path do |f| %>
     <h2>支払い方法</h2>
     <label>
       <%= f.radio_button :payment_method, :クレジットカード %>クレジットカード
