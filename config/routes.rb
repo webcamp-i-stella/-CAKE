@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :orders , except: [:destroy]
     resources :shipping_adress, except: [:new]
     resources :cart_products, only: [:index, :update, :destroy]
+    
+    get 'order/confirm' => 'order#confirm'
     get '/customers/:id/check' => 'public/customers#check'
     patch '/customers/:id/withdraw' => 'public/customers#withdraw'
     delete '/customers/:id/cart_products/:id' => 'public/cart_products#destroy_all'
