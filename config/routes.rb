@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
+
+
   scope module: :public do
     root 'homes#top'
     resources :products, only: [:index, :show]
-    resources :genre, only: [:show]
+    resources :genres, only: [:show]
     resources :orders , except: [:destroy]
     resources :shipping_adress, except: [:new]
     resources :cart_products, only: [:index, :update, :destroy]
     resource :customers, only: [:edit, :update]
-
-    get 'order/confirm' => 'order#confirm'
+    post 'orders/confirm' => 'orders#confirm'
     get '/customers/my_page' => 'customers#show'
     get '/customers/check' => 'customers#check'
     patch '/customers/withdraw' => 'customers#withdraw'
@@ -17,7 +18,7 @@ Rails.application.routes.draw do
   end
   namespace :admin do
     resources :products,  except: [:destroy]
-    resources :genre, only: [:index, :create, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
     resources :orders, only: [:show, :update]
     resources :order_details, only: [:update]
     resources :homes, only: [:top]
