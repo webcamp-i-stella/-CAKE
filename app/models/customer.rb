@@ -8,6 +8,4 @@ class Customer < ApplicationRecord
          has_many :shipping_addresses
          has_many :cart_products
 
-  validates :postal_code, presence: true
-  validates :address, presence: true
 end
