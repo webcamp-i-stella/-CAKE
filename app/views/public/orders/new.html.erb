@@ -7,12 +7,12 @@
 
     <h2>お届け先</h2>
     <p>ご自身の住所</p>
-      <%= f.radio_button :order_postal_code, :@order.customer.postal_code %>
-      <%= f.hidden_field :order_adress, :@order.customer.adress %>
-      <%= f.hidden_field :order_name, :@order.customer.family_name , @order.customer.first_name %>
+      <%= f.radio_button :order_postal_code, :@order %>
+      <%= f.hidden_field :order_adress, :value => @order %>
+      <%= f.hidden_field :order_name, :value => @order %>
 
     <p>登録済住所から選択</p>
-      <% @order.customer.shipping_adresses.each do |s| %>
+      <% @order.customer.shipping_addresses.each do |s| %>
         <%= s.postal_code %>
         <%= s.adress %>
         <%= s.name %>
