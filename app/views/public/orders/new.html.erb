@@ -1,2 +1,30 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
+<h1>注文情報入力</h1>
+
+<%= form_for @order, method: :post, url: order_confirm_path do |f| %>
+    <h2>支払い方法</h2>
+      <%= f.radio_button :payment_method, :クレジットカード %>
+      <%= f.radio_button :payment_method, :現金 %>
+
+    <h2>お届け先</h2>
+    <p>ご自身の住所</p>
+      <%= f.radio_button :order_postal_code, :@order.customer.postal_code %>
+      <%= f.hidden_field :order_adress, :@order.customer.adress %>
+      <%= f.hidden_field :order_name, :@order.customer.family_name , @order.customer.first_name %>
+
+    <p>登録済住所から選択</p>
+      <% @order.customer.shipping_adresses.each do |s| %>
+        <%= s.postal_code %>
+        <%= s.adress %>
+        <%= s.name %>
+      <% end %>
+
+    <p>新しいお届け先</p>
+    <p>郵便番号(ハイフンなし)</p>
+      <%= f.text_field :order_postal_code %>
+    <p>住所</p>
+      <%= f.text_field :order_adress %>
+    <p>宛名</p>
+      <%= f.text_field :order_name %>
+
+    <%= f.submit '確認画面へ進む' %>
+<% end %>
