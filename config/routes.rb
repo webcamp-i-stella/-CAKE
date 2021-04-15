@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :order_details, only: [:update]
     resources :homes, only: [:top]
   end
-  
+
   devise_for :admin_users
   devise_for :customers
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
