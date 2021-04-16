@@ -13,7 +13,8 @@
     <h2>お届け先</h2>
     <p>ご自身の住所</p>
     <label>
-      <%= f.radio_button :order_postal_code, :@order %><%= current_customer %>
+      <%= f.radio_button :order_postal_code, :@order %><%= current_customer.postal_code %><%= current_customer.address %></br>
+      <%= current_customer.family_name %><%= current_customer.first_name %>
       <%= f.hidden_field :order_address, :value => @order %>
       <%= f.hidden_field :order_name, :value => @order %>
     </label>
