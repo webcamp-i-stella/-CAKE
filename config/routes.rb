@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :orders , except: [:destroy]
     resources :shipping_adress, except: [:new]
     resources :cart_products, only: [:index, :update, :destroy]
+    post 'orders/complete' => 'orders#complete'
     post 'orders/confirm' => 'orders#confirm'
     get '/customers/my_page' => 'customers#show'
     get '/customers/check' => 'customers#check'
