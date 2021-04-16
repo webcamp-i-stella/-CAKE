@@ -1,3 +1,5 @@
+<% if @order.confirming.blank? %>
+
 <h1>注文情報入力</h1>
   <%= form_with model: @order, method: :post, local: true do |f| %>
     <h2>支払い方法</h2>
@@ -30,4 +32,41 @@
 
     <%= f.submit '確認画面へ進む' %>
   <% end %>
+<% else %>
+
+<h2>注文情報確認</h2>
+  <% CartProduct.all.each do |p| %>
+    <p>商品名</p>
+      <%= p.product.name %>
+    <p>単価（税込）</p>
+      <%= p.product.no_tax_plice *1.1 %>
+    <p>数量</p>
+      <%= p.cart_count %>
+    <p>小計</p>
+      <%= p.cart_count * (p.product.no_tax_price * 1.1) %>
+  <% end %>
+
+  <p>送料</p>
+    <%= @order.shipping_fee = 800 %>
+  <p>商品合計</p>
+    <%= @total_price %>
+  <p>請求金額</p>
+    <%= @order.shipping_fee +  @total_price.to_i %>
+
+
+  <%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
+  <%= f.hidden_field :payment_method, :value => @order.payment_method %>
+  <%= f.hidden_field :order_postal_code, :value => @order.order_postal_code %>
+  <%= f.hidden_field :order_address, :value => @order.order_address %>
+  <%= f.hidden_field :order_name, :value => @order.order_name %>
+    <p>支払い方法</p>
+      <%= @order.payment_method %>
+    <p>お届け先</p>
+      <%= @order.order_postal_code %>
+      <%= @order.order_address %>
+      <%= @order.order_name %>
+    <%= f.submit "注文を確定する" %>
+  <% end %>
+
+<% end %>
 

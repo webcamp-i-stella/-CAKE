@@ -5,7 +5,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-    @order = Order.new
+    @order = Order.new(order_params)
+    @order.save(validate: false)
+    redirect_to "/orders/complete"
   end
 
   def complete
@@ -13,8 +15,10 @@ class Public::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    @order.save
-    redirect_to orders_complete_path
+    if @order.save
+    else
+        render :new
+    end
   end
   
   def index
@@ -22,11 +26,8 @@ class Public::OrdersController < ApplicationController
 
   def show
   end
-   private
   
   def order_params
-    params.require(:order).permit(:order_postal_code,:order_address,:order_name,:payment_method)
+    params.require(:order).permit(:order_postal_code,:order_address,:order_name,:payment_method,:confirming)
   end
- 
-  
 end
