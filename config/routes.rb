@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  
-  
+
+
   scope module: :public do
     root 'homes#top'
     resources :products, only: [:index, :show]
@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :orders , except: [:destroy]
     resources :shipping_adress, except: [:new]
     resources :cart_products, only: [:index, :update, :destroy]
+    resource :customers, only: [:edit, :update]
     post 'orders/confirm' => 'orders#confirm'
     get '/customers/my_page' => 'customers#show'
     get '/customers/check' => 'customers#check'
