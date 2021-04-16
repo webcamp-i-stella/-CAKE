@@ -1,6 +1,6 @@
 class Admin::ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.all.page(params[:page]).per(10)
   end
 
   def new
@@ -26,10 +26,10 @@ class Admin::ProductsController < ApplicationController
     product.update(product_params)
     redirect_to admin_product_path(product.id)
   end
-  
+
   private
   def product_params
     params.require(:product).permit(:genre_id, :image, :name, :discription, :no_tax_price, :is_active)
   end
-  
+
 end
