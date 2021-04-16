@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  
-  
+
   scope module: :public do
     root 'homes#top'
     get 'orders/complete' => 'orders#complete'
     resources :products, only: [:index, :show]
     resources :genres, only: [:show]
     resources :orders , except: [:destroy]
-    resources :shipping_adress, except: [:new]
+    resources :shipping_addresses, except: [:new]
     resources :cart_products, only: [:index, :update, :destroy]
+    resource :customers, only: [:edit, :update]
     post 'orders/confirm' => 'orders#confirm'
     get '/customers/my_page' => 'customers#show'
     get '/customers/check' => 'customers#check'
