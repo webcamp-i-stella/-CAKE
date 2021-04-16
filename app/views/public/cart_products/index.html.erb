@@ -1,6 +1,6 @@
 <h2>ショッピングカート</h2>
 
-<%= form_with model: @cact_product do |f| %>
+<%= form_with model: [@order,@cart_product], url:new_order_path, local: true do |f| %>
 
 <p>数量</p>
 <%= f.select :cart_count, [1,2,3,4,5,6,7,8,9,10] %>
@@ -11,10 +11,6 @@
 
 <p>単価（税込）</p>
 <%= p.product.no_tax_price * 1.1 %>
-
-
-<p>数量</p>
-<%= f.select :cart_count, [["１", "1"], ["選択肢２", "2"]], include_blank: "選択して下さい" %>
 
 <p>小計</p>
 <%= p.product.no_tax_price * 1.1 * (p.count) %>

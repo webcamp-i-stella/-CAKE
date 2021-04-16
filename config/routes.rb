@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'homes#top'
     get 'orders/complete' => 'orders#complete'
+    post 'orders/new' => 'orders#new'
     resources :products, only: [:index, :show]
     resources :genres, only: [:show]
     resources :orders , except: [:destroy]
@@ -25,6 +26,9 @@ Rails.application.routes.draw do
   end
 
   devise_for :admin_users
-  devise_for :customers
+  devise_for :customers, controllers:{
+    registrations: 'customers/registrations',
+    sessions: 'customers/sessions'
+  }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

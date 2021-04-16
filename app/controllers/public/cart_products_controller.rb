@@ -1,6 +1,6 @@
 class Public::CartProductsController < ApplicationController
   def index
-    @cart_products = CartProduct.new
+    @cart_product = CartProduct.new
   end
 
   def update
