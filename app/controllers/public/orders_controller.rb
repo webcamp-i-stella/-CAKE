@@ -7,6 +7,7 @@ class Public::OrdersController < ApplicationController
   def confirm
     @order = Order.new(order_params)
     @order.save(validate: false)
+    # @order_detail = OrderDetail.create
     redirect_to "/orders/complete"
   end
 

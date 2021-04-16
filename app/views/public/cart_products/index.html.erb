@@ -1,9 +1,11 @@
 <h2>ショッピングカート</h2>
 
-<%= form_with model: [@order,@cart_product], url:new_order_path, local: true do |f| %>
+<%= form_with model: @cart_product, local: true do |f| %>
 
 <p>数量</p>
 <%= f.select :cart_count, [1,2,3,4,5,6,7,8,9,10] %>
+<%= f.submit "変更" %>
+
 
 <p>商品名</p>
 <% current_customer.cart_products.each do |p| %>
@@ -20,5 +22,5 @@
 <p>合計金額</p>
 <p>【検討中】</p>
 
-<%= f.submit '送信'%>
+<%= link_to '送信' , orders_new_path %>
 <% end %>

@@ -1,9 +1,11 @@
 class Public::CartProductsController < ApplicationController
   def index
-    @cart_product = CartProduct.new
+    @cart_products = current_customer.cart_products.all
   end
 
   def update
+    @cart_product.update
+    render :index
   end
 
   def destroy
