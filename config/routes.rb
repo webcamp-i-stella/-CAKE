@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   scope module: :public do
     root 'homes#top'
+    get 'orders/complete' => 'orders#complete'
     resources :products, only: [:index, :show]
     resources :genres, only: [:show]
     resources :orders , except: [:destroy]
