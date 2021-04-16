@@ -12,9 +12,11 @@
 
     <h2>お届け先</h2>
     <p>ご自身の住所</p>
-      <%= f.radio_button :order_postal_code, :@order %>
+    <label>
+      <%= f.radio_button :order_postal_code, :@order %><%= current_customer %>
       <%= f.hidden_field :order_address, :value => @order %>
       <%= f.hidden_field :order_name, :value => @order %>
+    </label>
 
     <p>登録済住所から選択</p>
     
