@@ -1,13 +1,9 @@
 <h1>商品一覧<small>(全<%= @products.count %>件)</small></h1>
-<% @products.each do |product| %>
-<div>
-  <%= link_to product_path(product.id) do %>
-    <%= attachment_image_tag product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'200x200' %>
+<h2>商品ジャンルで一覧を表示する</h2>
+<div class ="genre">
+  <% @genres.each do |genre| %>
+   <%= link_to genre.name,genre_path(genre.id) %>
   <% end %>
 </div>
-<h3>商品名</h3>
- <span><%= product.name %></span>
-<h3>¥<%= product.no_tax_price %></h3>
-<% end %>
 
-<%= paginate @products %>
+<%= render "product", products_page: @products_page %>
