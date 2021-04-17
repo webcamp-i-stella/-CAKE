@@ -14,7 +14,7 @@
 <%= @order.order_status %>
 
 <%= form_with model: @order, url:admin_order_path(@order), local: true do |f| %>
-<%= f.select :order_status, [1,2,3,4,5] %>
+<%= f.select :order_status, [["入金待ち",0], ["入金確認",1], ["製作中",2], ["発送準備中",3], ["発送済み",4]] %>
 <%= f.submit "更新" %>
 <% end %>
 

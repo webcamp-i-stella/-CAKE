@@ -8,9 +8,8 @@ class Public::OrdersController < ApplicationController
   def confirm
     @order = current_customer.orders.build(order_params)
     @order.save(validate: false)
-    @order_detail = @order.order_details.build(product_id: product.id)
-    # @order_detail = OrderDetail.new(order_detail_params)
-    @order_detail.save!
+    # @order_detail = @order.order_details.build(product_id: product.id) <= どのproduct？？
+    # @order_detail.save
     redirect_to "/orders/complete"
   end
 

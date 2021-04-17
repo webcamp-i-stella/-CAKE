@@ -57,10 +57,10 @@
   <p>請求金額</p>
     <%= @order.shipping_fee +  @total_price.to_i %>
 
-
+ 
   <%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
     <%= f.fields_for :order_detail do |c| %>
-      <%= c.hidden_field :order_count, :value => 5 %>
+    <%= c.hidden_field :order_count, :value =>  6 %>
       <%= f.hidden_field :payment_method, :value => @order.payment_method %>
       <%= f.hidden_field :order_postal_code, :value => @order.order_postal_code %>
       <%= f.hidden_field :order_address, :value => @order.order_address %>
