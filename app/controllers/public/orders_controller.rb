@@ -5,8 +5,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-    @order = Order.new(order_params)
+    @order = current_customer.orders.build(order_params)
     @order.save(validate: false)
+    # @order_detail = OrderDetail.create
     redirect_to "/orders/complete"
   end
 
@@ -28,6 +29,6 @@ class Public::OrdersController < ApplicationController
   end
   
   def order_params
-    params.require(:order).permit(:order_postal_code,:order_address,:order_name,:payment_method,:confirming)
+    params.require(:order).permit(:order_postal_code,:order_address,:order_name,:payment_method,:customer_id,:confirming)
   end
 end
