@@ -25,7 +25,7 @@
         <th><%= shipping_address.name %></th>
         <th>
           <%= link_to "編集する", edit_shipping_address_path(shipping_address) %>
-          <%= link_to "削除する", shipping_address_path(shipping_address), method: :delete %>
+          <%= link_to "削除する", shipping_address_path(shipping_address), method: :delete, "data-confirm" => "本当に削除しますか？" %>
         </th>
       </tr>
     </tbody>
