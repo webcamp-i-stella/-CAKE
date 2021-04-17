@@ -2,6 +2,7 @@ class Public::OrdersController < ApplicationController
       
   def new
     @order = Order.new
+    @order_addresses = ShippingAddress.all
   end
 
   def confirm
