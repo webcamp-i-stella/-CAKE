@@ -20,19 +20,28 @@
 
 
 <p>商品名</p>
-<% @orders.each do |order| %>
+<% @order.order_details.each do |order_detail| %>
+<%= order_detail.product.name %>
 <% end %>
 <p>単価</p>
-<% @orders.each do |order| %>
+<% @order.order_details.each do |order_detail| %>
+<%= order_detail.tax_price %>
 <% end %>
 <p>数量</p>
-<% @orders.each do |order| %>
+<% @order.order_details.each do |order_detail| %>
+<%= order_detail.count %>
 <% end %>
 <p>小計</p>
-<% @orders.each do |order| %>
+<% @order.order_details.each do |order_detail| %>
+<%= order_detail.tax_price %>
 <% end %>
 
 <p>制作ステータス</p>
 
 
-
+<p>商品合計</p>
+<%= @order.total_price %>
+<p>送料</p>
+<%= @order.shipping_fee = 800 %>
+<p>請求額合計</p>
+<%= @order.total_price.to_i + @order.shipping_fee %>
