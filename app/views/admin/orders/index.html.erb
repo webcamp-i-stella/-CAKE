@@ -2,7 +2,7 @@
 
 <p>購入日時</p>
 <% @orders.each do |order| %>
-<%= order.created_at %>
+<%= link_to order.created_at, admin_order_path(order) %>
 <p>購入者</p>
 <%= order.customer.family_name %><%= order.customer.first_name %>
 <p>注文個数</p>
