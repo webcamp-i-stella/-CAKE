@@ -7,7 +7,8 @@ class Public::OrdersController < ApplicationController
   def confirm
     @order = current_customer.orders.build(order_params)
     @order.save(validate: false)
-    # @order_detail = OrderDetail.create
+    # @order_detail = OrderDetail.new(order_detail_params)
+    # @order_detail.save
     redirect_to "/orders/complete"
   end
 
@@ -26,6 +27,11 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
+  end
+  
+  
+  def order_detail_params
+    params.require(:order_detail).permit(:order_count,:tax_price)
   end
   
   def order_params

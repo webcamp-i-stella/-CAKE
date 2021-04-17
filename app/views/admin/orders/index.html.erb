@@ -4,9 +4,11 @@
 <% @orders.each do |order| %>
 <%= order.created_at %>
 <p>購入者</p>
-<%= order.customer %>
+<%= order.customer.family_name %><%= order.customer.first_name %>
 <p>注文個数</p>
-
+<% order.order_details.each do |order_detail| %>
+<%= order_detail.order_count %>
+<% end %>
 <p>注文ステータス</p>
 <%= order.order_status %>
 <% end %>
