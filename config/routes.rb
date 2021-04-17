@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'homes#top'
     get 'orders/complete' => 'orders#complete'
+    post 'orders/new' => 'orders#new'
     resources :products, only: [:index, :show]
     resources :genres, only: [:show]
     resources :orders , except: [:destroy]
@@ -19,7 +20,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :products,  except: [:destroy]
     resources :genres, only: [:index, :create, :edit, :update]
-    resources :orders, only: [:show, :update]
+    resources :orders, only: [:show, :update, :index]
     resources :order_details, only: [:update]
     resources :homes, only: [:top]
   end
