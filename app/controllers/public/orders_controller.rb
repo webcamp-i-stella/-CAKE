@@ -2,13 +2,15 @@ class Public::OrdersController < ApplicationController
       
   def new
     @order = Order.new
+    @order_detail = @order.order_details.build
   end
 
   def confirm
     @order = current_customer.orders.build(order_params)
     @order.save(validate: false)
+    @order_detail = @order.order_details.build(product_id: product.id)
     # @order_detail = OrderDetail.new(order_detail_params)
-    # @order_detail.save
+    @order_detail.save!
     redirect_to "/orders/complete"
   end
 
@@ -33,11 +35,18 @@ class Public::OrdersController < ApplicationController
   end
   
   
-  def order_detail_params
-    params.require(:order_detail).permit(:order_count,:tax_price)
-  end
+  # def order_detail_params
+  #   params.require(:order_detail).permit(:order_count,:tax_price)
+  # end
   
   def order_params
-    params.require(:order).permit(:order_postal_code,:order_address,:order_name,:payment_method,:customer_id,:confirming)
-  end
+    params.require(:order).permit(:order_postal_code,
+                                  :order_address,
+                                  :order_name,
+                                  :payment_method,
+                                  :customer_id,
+                                  :confirming,
+                                  order_detail_attributes: [:order_count])
+  end                               
 end
+

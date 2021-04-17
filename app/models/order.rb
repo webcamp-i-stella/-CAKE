@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
-    belongs_to :customer
+    belongs_to :customer, optional: true
     has_many :order_details
+    accepts_nested_attributes_for :order_details
     
     
     validates_acceptance_of :confirming, allow_nil: false
