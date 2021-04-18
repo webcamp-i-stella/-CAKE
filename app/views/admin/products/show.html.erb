@@ -2,7 +2,7 @@
 <div class = "product-body">
   <div class ="image">
     <h3>商品画像</h3>
-    <%= attachment_image_tag @product, :image,:fill,100,100, format: 'jpeg' %>
+    <%= attachment_image_tag @product, :image,:fill,100,100, format: 'jpeg',fallback: "no_image.png",size:'200x200' %>
   </div>
   <div class="name">
     <h3>商品名</h3>
@@ -13,7 +13,7 @@
     <h3>商品説明文</h3>
     <p><%= @product.discription %></p>
   </div>
-  
+
   <div class="genre">
     <h3>ジャンル名</h3>
     <p><%= @product.genre.name %></p>
@@ -26,10 +26,11 @@
     </p>
   </div>
 
-
-
   <div class="is_active">
     <h3>販売ステータス名</h3>
+        <p><% if @product.is_active  %>販売中
+        <% else %>販売停止中
+        <% end %></p>
   </div>
 
   <%= link_to "編集する",edit_admin_product_path(@product.id) %>
