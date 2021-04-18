@@ -1,26 +1,40 @@
 <h2>ショッピングカート</h2>
+<%= link_to "カートを空にする", "/customers/cart_products/#{@cart_product}", method: :delete %>
 
-<%= form_with model: @cart_product, local: true do |f| %>
-
-<p>数量</p>
-<%= f.select :cart_count, [1,2,3,4,5,6,7,8,9,10] %>
-<%= f.submit "変更" %>
-
-
-<p>商品名</p>
-<% current_customer.cart_products.each do |p| %>
-<%= p.product.name %>
-
-<p>単価（税込）</p>
-<%= p.product.no_tax_price * 1.1 %>
-
-<p>小計</p>
-<%= p.product.no_tax_price * 1.1 * (p.count) %>
-<% end %>
-
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">商品名</th>
+      <th scope="col">単価（税込）</th>
+      <th scope="col">数量</th>
+      <th scope="col">小計</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <% current_customer.cart_products.each do |cart_product| %>
+    <tr>
+      <td><%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'200x200' %>
+          <%= cart_product.product.name %></td>
+      <td><%= ((cart_product.product.no_tax_price.to_i * 1.1).round(2)).ceil %></td>
+      <td><%= form_with model: @cart_product, url:"cart_product_path(@cart_product.id)", local: true do |f| %>
+            <%= f.select :cart_count, options_for_select(((1..20).to_a),cart_product) %>
+            <%= f.submit "変更" %>
+          <% end %></td>
+      <td><%= ((cart_product.product.no_tax_price.to_i * 1.1 * (cart_product.cart_count)).round(2)).ceil %></td>
+      <td><%= link_to "削除する", cart_products_path(@cart_product), method: :delete %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 
 <p>合計金額</p>
-<p>【検討中】</p>
+<%= @total_price %>
 
-<%= link_to '送信' , orders_new_path %>
+<%= link_to '情報入力に進む' , orders_new_path %>
+<% @cart_products.each do |cart_product| %>
+
 <% end %>
+
+<%= link_to "買い物を続ける" %>
