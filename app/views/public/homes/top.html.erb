@@ -1,3 +1,21 @@
 <%= flash[:notice] %>
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+
+<h3>
+ようこそながのCAKEへ！</br>
+このサイトは、ケーキ販売のECサイトになります。</br>
+会員でない方も商品の閲覧はできますが、</br>
+購入には会員登録が必要になります。</br>
+</h3>
+
+<h2>新着商品</h2>
+<% @new_product.reverse_each do |new_product| %>
+ <div>
+  <%= link_to product_path(new_product.id) do %>
+    <%= attachment_image_tag new_product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'200x200' %>
+    <% end %>
+ </div>
+ <h3>商品名  <span><small><%= new_product.name %></small></span></h3>
+ <h3>¥<%= new_product.no_tax_price %></h3>
+<% end %>
+
+<%= link_to"全ての商品を見る", products_path %>
