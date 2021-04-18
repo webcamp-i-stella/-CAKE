@@ -2,6 +2,7 @@
 
 <p>商品名</p>
 <% current_customer.cart_products.each do |cart_product| %>
+<%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'200x200' %>
 <%= cart_product.product.name %>
 
 <p>単価（税込）</p>
@@ -26,3 +27,5 @@
 <% @cart_products.each do |cart_product| %>
 <%= link_to "カートを空にする", "/customers/cart_products/#{cart_product}", method: :delete %>
 <% end %>
+
+<%= link_to "買い物を続ける",  %>
