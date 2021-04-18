@@ -1,26 +1,31 @@
 <h2>ショッピングカート</h2>
 
-<%= form_with model: @cart_product, local: true do |f| %>
-
-<p>数量</p>
-<%= f.select :cart_count, [1,2,3,4,5,6,7,8,9,10] %>
-<%= f.submit "変更" %>
-
-
 <p>商品名</p>
-<% current_customer.cart_products.each do |p| %>
-<%= p.product.name %>
+<% current_customer.cart_products.each do |cart_product| %>
+<%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'200x200' %>
+<%= cart_product.product.name %>
 
 <p>単価（税込）</p>
-<%= p.product.no_tax_price * 1.1 %>
+<%= cart_product.product.no_tax_price * 1.1 %>
+
+<p>数量</p>
+<%= form_with model: @cart_product, url:cart_product_path(cart_product), local: true do |f| %>
+<%= f.select :cart_count, options_for_select(((1..20).to_a),cart_count) %>
+<%= f.submit "変更" %>
+<% end %>
 
 <p>小計</p>
-<%= p.product.no_tax_price * 1.1 * (p.count) %>
+<%= cart_product.product.no_tax_price * 1.1 * (cart_product.count) %>
+<%= link_to "削除する", cart_product_path(cart_product), method: :delete %>
 <% end %>
 
 
 <p>合計金額</p>
-<p>【検討中】</p>
+<%= @total_price %>
 
 <%= link_to '送信' , orders_new_path %>
+<% @cart_products.each do |cart_product| %>
+<%= link_to "カートを空にする", "/customers/cart_products/#{cart_product}", method: :delete %>
 <% end %>
+
+<%= link_to "買い物を続ける",  %>
