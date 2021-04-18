@@ -6,8 +6,7 @@ class CreateProducts < ActiveRecord::Migration[5.2]
       t.string :name
       t.text :discription
       t.integer :no_tax_price
-      t.boolean :is_active
-
+      t.boolean :is_active, default: true
       t.timestamps
     end
   end

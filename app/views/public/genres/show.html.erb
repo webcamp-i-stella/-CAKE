@@ -1,2 +1,2 @@
-<h1>Public::Genres#show</h1>
-<p>Find me in app/views/public/genres/show.html.erb</p>
+<h1><%= @genre.name %><small>(全<%= @products.count %>件)</small></h1>
+<%= render "public/products/product", products_page: @products_page %>
