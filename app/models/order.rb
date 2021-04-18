@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
     belongs_to :customer, optional: true
     has_many :order_details
+    accepts_nested_attributes_for :order_details
     
     
     validates_acceptance_of :confirming, allow_nil: false
@@ -16,9 +17,10 @@ class Order < ApplicationRecord
     validates :order_postal_code, presence: true
     validates :payment_method, presence: true
     
+    enum order_status: {入金待ち:0, 入金確認:1, 製作中:2, 発送準備中:3, 発送済み:4}, _prefix: true
+    enum payment_method: {クレジットカード:1, 現金:2}, _prefix: true
     
     
-    enum payment_method: {クレジットカード:1, 現金:2}
     
     array = []
     CartProduct.all.each do |p|
