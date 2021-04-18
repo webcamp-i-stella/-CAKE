@@ -1,5 +1,6 @@
 <div class = "product-body">
   <div class ="image">
+    
     <%= attachment_image_tag @product, :image,:fill,100,100, format: 'jpeg',fallback: "no_image.png",size:'200x200'  %>
   <div class="name">
     <p><%= @product.name %></p>

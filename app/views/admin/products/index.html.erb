@@ -21,7 +21,10 @@
     <td><%= product.discription %></td>
     <td><%= product.no_tax_price %></td>
     <td><%= product.genre.name %></td>
-    <td></td>
+    <td><% if product.is_active  %>販売中
+        <% else %>販売停止中
+        <% end %>
+    </td>
   </tbody>
   <% end %>
 </table>
