@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :genres, only: [:show]
     resources :orders , except: [:destroy]
     resources :shipping_addresses, except: [:new]
-    resources :cart_products, only: [:index, :update, :destroy]
+    resources :cart_products, only: [:index, :update, :destroy, :destroy_all, :create]
     resource :customers, only: [:edit, :update]
     post 'orders/confirm' => 'orders#confirm'
     get '/customers/my_page' => 'customers#show'
