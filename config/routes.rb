@@ -13,15 +13,13 @@ Rails.application.routes.draw do
     resources :genres, only: [:show]
     resources :orders , except: [:destroy]
     resources :shipping_addresses, except: [:new]
-
-    resources :cart_products, only: [:index, :update, :destroy, :destroy_all, :create]
-
+    resources :cart_products, only: [:index, :update, :destroy, :create]
     resource :customers, only: [:edit, :update]
     post 'orders/confirm' => 'orders#confirm'
     get '/customers/my_page' => 'customers#show'
     get '/customers/check' => 'customers#check'
     patch '/customers/withdraw' => 'customers#withdraw'
-    delete '/customers/cart_products/:id' => 'cart_products#destroy_all'
+    delete '/customers/cart_products/destroy_all' => 'cart_products#destroy_all'
     get 'homes/about' => 'homes#about'
   end
   namespace :admin do
