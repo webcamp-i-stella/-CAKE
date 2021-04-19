@@ -18,6 +18,23 @@ class Public::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    
+    if params[:order][:address_option] == "0"
+      @order.order_postal_code = current_customer.postal_code
+      @order.order_address = current_customer.address
+      @order.order_name = current_customer.family_name + current_customer.first_name
+    elsif params[:order][:address_option] == "1"
+      current_customer.shipping_addresses.each do |shipping_address|
+        @order.order_postal_code = shipping_address.postal_code
+        @order.order_address = shipping_address.address
+        @order.order_name = shipping_address.name
+      end
+    elsif params[:order][:address_option] == "2"
+      @order.order_postal_code = params[:order][:order_postal_code]
+      @order.order_address = params[:order][:order_address]
+      @order.order_name = params[:order][:order_name]
+    end
+  
     if @order.save
     else
         render :new
