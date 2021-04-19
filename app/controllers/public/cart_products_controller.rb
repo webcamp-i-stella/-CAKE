@@ -15,11 +15,7 @@ class Public::CartProductsController < ApplicationController
   end
 
   def update
-    @cart_products = current_customer.cart_products.all
-    @cart_products.each do |cart_product|
-    @cart_product = cart_product
-   end
-   
+    @cart_product = CartProduct.find(params[:id])
     @cart_product.update(cart_product_params)
     redirect_to cart_products_path
   end
