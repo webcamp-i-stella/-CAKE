@@ -1,5 +1,5 @@
 class Public::OrdersController < ApplicationController
-      
+
   def new
     @order = Order.new
     @order_detail = @order.order_details.build
@@ -18,7 +18,7 @@ class Public::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    
+
     if params[:order][:address_option] == "0"
       @order.order_postal_code = current_customer.postal_code
       @order.order_address = current_customer.address
@@ -34,13 +34,13 @@ class Public::OrdersController < ApplicationController
       @order.order_address = params[:order][:order_address]
       @order.order_name = params[:order][:order_name]
     end
-  
+
     if @order.save
     else
         render :new
     end
   end
-  
+
   def index
     @orders = Order.all
     @orders = Order.all.page(params[:page])
@@ -49,12 +49,12 @@ class Public::OrdersController < ApplicationController
   def show
      @order = Order.find(params[:id])
   end
-  
-  
+
+
   # def order_detail_params
   #   params.require(:order_detail).permit(:order_count,:tax_price)
   # end
-  
+
   def order_params
     params.require(:order).permit(:order_postal_code,
                                   :order_address,
@@ -64,6 +64,5 @@ class Public::OrdersController < ApplicationController
                                   :shipping_fee,
                                   :confirming,
                                   order_detail_attributes: [:order_count])
-  end                               
+  end
 end
-
