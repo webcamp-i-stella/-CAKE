@@ -1,43 +1,62 @@
 <% if @order.confirming.blank? %>
-<h1>注文情報入力</h1>
-  <%= form_with model: @order, method: :post, local: true do |f| %>
-    <h2>支払い方法</h2>
-    <label>
-      <%= f.radio_button :payment_method, :クレジットカード %>クレジットカード
-    </label>
-    <label>
-      <%= f.radio_button :payment_method, :現金 %>現金
-    </label>
-
-    <h2>お届け先</h2>
-    <p>ご自身の住所</p>
-    <label>
-      <%= f.radio_button :order_postal_code, :postal_code %><%= current_customer.postal_code %><%= current_customer.address %></br>
-      <%= current_customer.family_name %><%= current_customer.first_name %>
-      <%= f.hidden_field :order_address, :value => current_customer.address %>
-      <%= f.hidden_field :order_name, :value => current_customer.family_name + current_customer.first_name %>
-    </label>
-
-
-       <p>登録済住所から選択</p>
-    <%= f.select :order_address, options_for_select(current_customer.shipping_addresses), { include_blank: '選択してください' } %>
-    <% current_customer.shipping_addresses.each do |shipping_address| %>
-    <%= f.hidden_field :order_address, :value => shipping_address.address %>
-    <%= f.hidden_field :order_postal_code, :value => shipping_address.postal_code %>
-    <%= f.hidden_field :order_name, :value => shipping_address.name %>
+  <h3>注文情報入力</h3>
+    <%= form_with model: @order, method: :post, local: true do |f| %>
+      <h4>支払い方法</h4>
+        <label>
+          <%= f.radio_button :payment_method, :クレジットカード %>クレジットカード
+        </label></br>
+        <label>
+          <%= f.radio_button :payment_method, :現金 %>現金
+        </label>
+  
+      <h4>お届け先</h4>
+        <label>
+          <%= f.radio_button :address_option, 0 %> 
+          <%= f.hidden_field :order_postal_code, :value => current_customer.postal_code %>
+          <%= f.hidden_field :order_address, :value => current_customer.address %>
+          <%= f.hidden_field :order_name, :value => current_customer.family_name + current_customer.first_name %>
+            ご自身の住所</br>
+            〒<%= current_customer.postal_code %><%= current_customer.address %></br>
+            <%= current_customer.family_name %><%= current_customer.first_name %>
+        </label>
+        
+        <label></br>
+          <%= f.radio_button :address_option, 1 %>登録済住所から選択</br>
+          <%= f.select :address, current_customer.shipping_addresses.map{|a| ["〒" + a.postal_code + " " + a.address + " " + a.name]} %>
+            <% current_customer.shipping_addresses.each do |shipping_address| %>
+              <%= f.hidden_field :order_address, :value => shipping_address.address %>
+              <%= f.hidden_field :order_postal_code, :value => shipping_address.postal_code %>
+              <%= f.hidden_field :order_name, :value => shipping_address.name %>
+            <% end %>
+        </label>
+          
+        <label></br>
+          <%= f.radio_button :address_option, 2 %>新しいお届け先</br>
+          <table class="table">
+            <thead>
+              <th></th>
+              <th></th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>郵便番号(ハイフンなし)</td>
+                <td><%= f.text_field :order_postal_code %></td>
+              </tr>
+              <tr>
+                <td>住所</td>
+                <td><%= f.text_field :order_address %></td>
+              </tr>
+              <tr>
+                <td>宛名</td>
+                <td><%= f.text_field :order_name %></td>
+              </tr>
+            </tbody>
+          </table>
+        </label>  
+        
+      <%= f.submit '確認画面へ進む' %>
     <% end %>
-    
-       <p>新しいお届け先</p>
-    <p>郵便番号(ハイフンなし)</p>
-      <%= f.text_field :order_postal_code %>
-    <p>住所</p>
-      <%= f.text_field :order_address %>
-    <p>宛名</p>
-      <%= f.text_field :order_name %>
-      
-      
-    <%= f.submit '確認画面へ進む' %>
-  <% end %>
 <% else %>
 
 <h2>注文情報確認</h2>
