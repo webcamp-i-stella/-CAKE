@@ -44,6 +44,7 @@ class Public::OrdersController < ApplicationController
                                   :order_name,
                                   :payment_method,
                                   :customer_id,
+                                  :shipping_fee,
                                   :confirming,
                                   order_detail_attributes: [:order_count])
   end                               

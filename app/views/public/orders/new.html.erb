@@ -6,7 +6,7 @@
       <%= f.radio_button :payment_method, :クレジットカード %>クレジットカード
     </label>
     <label>
-      <%= f.radio_button :payment_method, :現金 %>現金
+      <%= f.radio_button :payment_method, :銀行振込 %>銀行振込
     </label>
 
     <h2>お届け先</h2>
@@ -53,11 +53,11 @@
   <% end %>　　
 
   <p>送料</p>
-    <%= @order.shipping_fee = 800 %>
+    <%= @order.shipping_fee.to_i %>
   <p>商品合計</p>
     <%= @total_price %>
   <p>請求金額</p>
-    <%= @order.shipping_fee +  @total_price.to_i %>
+    <%= @order.shipping_fee.to_i +  @total_price.to_i %>
 
  
   <%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
@@ -67,6 +67,7 @@
       <%= f.hidden_field :order_postal_code, :value => @order.order_postal_code %>
       <%= f.hidden_field :order_address, :value => @order.order_address %>
       <%= f.hidden_field :order_name, :value => @order.order_name %>
+      <%= f.hidden_field :shipping_fee, :value => 800 %>
   
     <p>支払い方法</p>
       <%= @order.payment_method %>
