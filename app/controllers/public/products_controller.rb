@@ -6,7 +6,8 @@ class Public::ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+   @product = Product.find(params[:id])
+   @cart_product = CartProduct.new
   end
-
+  
 end
