@@ -71,10 +71,12 @@ class Public::OrdersController < ApplicationController
                                   :customer_id,
                                   :shipping_fee,
                                   :confirming,
-                                  order_details_attributes: [:order_count])
+                                  order_details_attributes: [:tax_price,:production_status,:order_count,:product_id])
+                                  
   end                               
   # def order_status_params
   #     params.require(:order).permit(:order_status).merge(order_status: params[:order][:order_status].to_i)
   # end
 end
+                                  
 
