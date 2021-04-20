@@ -2,7 +2,7 @@ class Public::OrdersController < ApplicationController
       
   def new
     @order = Order.new
-    @order_detail = @order.order_details.build
+    @order.order_details.build
   end
 
   def confirm
@@ -63,7 +63,7 @@ class Public::OrdersController < ApplicationController
                                   :customer_id,
                                   :shipping_fee,
                                   :confirming,
-                                  order_detail_attributes: [:order_count])
+                                  order_details_attributes: [:order_count])
   end                               
 end
 
