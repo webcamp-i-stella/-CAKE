@@ -1,6 +1,10 @@
 class Public::CartProductsController < ApplicationController
   def index
     @cart_products = current_customer.cart_products.all
+    @total_price = 0
+    @cart_products.each do |cart_product|
+    @total_price += ((cart_product.product.no_tax_price.to_i * 1.1 * (cart_product.cart_count).round(2)).round)
+    end
   end
 
   def create
@@ -11,18 +15,21 @@ class Public::CartProductsController < ApplicationController
   end
 
   def update
+    @cart_product = CartProduct.find(params[:id])
     @cart_product.update(cart_product_params)
-    render :index
+    redirect_to cart_products_path
   end
 
   def destroy
-    @cart_product = CartProduct.find(params[:id])
-    @cart_product.destroy
+    cart_product = CartProduct.find(params[:id])
+    cart_product.destroy
+    redirect_to cart_products_path
   end
 
   def destroy_all
-    @cart_product = CartProduct.find(params[:id])
-    @cart_product.destroy_all
+    cart_products = current_customer.cart_products.all
+    cart_products.destroy_all
+    redirect_to cart_products_path
   end
 
 private

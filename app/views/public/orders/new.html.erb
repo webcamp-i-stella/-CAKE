@@ -8,10 +8,10 @@
         <label>
           <%= f.radio_button :payment_method, :現金 %>現金
         </label>
-
+  
       <h4>お届け先</h4>
         <label>
-          <%= f.radio_button :address_option, 0 %>
+          <%= f.radio_button :address_option, 0 %> 
           <%= f.hidden_field :order_postal_code, :value => current_customer.postal_code %>
           <%= f.hidden_field :order_address, :value => current_customer.address %>
           <%= f.hidden_field :order_name, :value => current_customer.family_name + current_customer.first_name %>
@@ -19,7 +19,7 @@
             〒<%= current_customer.postal_code %><%= current_customer.address %></br>
             <%= current_customer.family_name %><%= current_customer.first_name %>
         </label>
-
+        
         <label></br>
           <%= f.radio_button :address_option, 1 %>登録済住所から選択</br>
           <%= f.select :address, current_customer.shipping_addresses.map{|a| ["〒" + a.postal_code + " " + a.address + " " + a.name]} %>
@@ -29,7 +29,7 @@
               <%= f.hidden_field :order_name, :value => shipping_address.name %>
             <% end %>
         </label>
-
+          
         <label></br>
           <%= f.radio_button :address_option, 2 %>新しいお届け先</br>
           <table class="table">
@@ -53,8 +53,8 @@
               </tr>
             </tbody>
           </table>
-        </label>
-
+        </label>  
+        
       <%= f.submit '確認画面へ進む' %>
     <% end %>
 <% else %>
@@ -72,11 +72,11 @@
   <% end %>
 
   <p>送料</p>
-    <%= @order.shipping_fee = 800 %>
+    <%= @order.shipping_fee.to_i %>
   <p>商品合計</p>
     <%= @total_price %>
   <p>請求金額</p>
-    <%= @order.shipping_fee +  @total_price.to_i %>
+    <%= @order.shipping_fee.to_i +  @total_price.to_i %>
 
 
   <%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
