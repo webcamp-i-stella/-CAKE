@@ -82,8 +82,6 @@
     <% end %>
     <%= @total_price %>
   <p>請求金額</p>
-    <%= @order.shipping_fee.to_i  + @total_price %>
-
 
   <%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
     <% current_customer.cart_products.each do |cart_product| %>
@@ -98,7 +96,7 @@
     <%= f.hidden_field :order_postal_code, :value => @order.order_postal_code %>
     <%= f.hidden_field :order_address, :value => @order.order_address %>
     <%= f.hidden_field :order_name, :value => @order.order_name %>
-
+                      
     <p>支払い方法</p>
       <%= @order.payment_method %>
     <p>お届け先</p>
@@ -108,4 +106,4 @@
     <%= f.submit "注文を確定する" %>
     <% end %>
    <% end %>
-
+<% end %>

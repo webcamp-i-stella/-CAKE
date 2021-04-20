@@ -2,12 +2,15 @@ class Public::OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @order_detail = @order.order_details.build
+    @order.order_details.build
   end
 
   def confirm
     @order = current_customer.orders.build(order_params)
-    @order.save(validate: false)
+    @cart_products = current_customer.cart_products
+    if @order.save(validate: false)
+      @cart_products.destroy_all
+    end
     # @order_detail = @order.order_details.build(product_id: product.id) <= どのproduct？？
     # @order_detail.save
     redirect_to "/orders/complete"
@@ -64,5 +67,3 @@ class Public::OrdersController < ApplicationController
                                   :shipping_fee,
                                   :confirming,
                                   order_details_attributes: [:tax_price,:production_status,:order_count,:product_id])
-  end
-end
