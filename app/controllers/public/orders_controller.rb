@@ -7,7 +7,10 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = current_customer.orders.build(order_params)
-    @order.save(validate: false)
+    @cart_products = current_customer.cart_products
+    if @order.save(validate: false)
+      @cart_products.destroy_all
+    end
     # @order_detail = @order.order_details.build(product_id: product.id) <= どのproduct？？
     # @order_detail.save
     redirect_to "/orders/complete"
