@@ -63,7 +63,6 @@ class Public::OrdersController < ApplicationController
                                   :customer_id,
                                   :shipping_fee,
                                   :confirming,
-                                  order_details_attributes: [:order_count])
+                                  order_details_attributes: [:tax_price,:production_status,:order_count,:product_id])
   end
 end
-

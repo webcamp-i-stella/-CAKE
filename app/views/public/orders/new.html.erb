@@ -79,8 +79,13 @@
     <%= @order.shipping_fee.to_i +  @total_price.to_i %>
 
   <%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
-    <%= f.fields_for :order_details, @order.order_details.build do |c| %>
-        <%= c.hidden_field :order_count, :value => current_customer.cart_products.sum(:cart_count) %> %>
+    <% current_customer.cart_products.each do |cart_product| %>
+     <%= f.fields_for :order_details, @order.order_details.build do |c| %>
+     <% product = Product.find_by(id: cart_product.product_id) %>
+        <%= c.hidden_field :order_count, :value => cart_product.cart_count %>
+        <%= c.hidden_field :product_id, :value => product.id %>
+        <%= c.hidden_field :tax_price, :value => @order.shipping_fee.to_i %>
+     <% end %>
     <% end %>
     <%= f.hidden_field :payment_method, :value => @order.payment_method %>
     <%= f.hidden_field :order_postal_code, :value => @order.order_postal_code %>
