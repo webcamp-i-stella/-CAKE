@@ -1,14 +1,17 @@
-<% products_page.each do |product| %>
- <% if product.is_active %>
-<div>
-  <%= link_to product_path(product.id) do %>
-    <%= attachment_image_tag product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'200x200' %>
+<div class="container">
+  <div class="row">
+    <% products_page.each do |product| %>
+      <% if product.is_active %>
+        <div class="col-3">
+          <%= link_to product_path(product.id) do %>
+            <%= attachment_image_tag product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'200x200' %>
+          <% end %>
+          <p><%= product.name %></p>
+          <p>¥<%= product.no_tax_price %></p>
+        </div>
+      <% end %>
     <% end %>
+  </div>
 </div>
-<h3>商品名</h3>
- <span><%= product.name %></span>
-<h3>¥<%= product.no_tax_price %></h3>
-  <% end %>
-<% end %>
 
 <%= paginate products_page %>

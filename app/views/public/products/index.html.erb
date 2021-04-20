@@ -1,6 +1,5 @@
-<h1>商品一覧<small>
-(全<%= @products.count %>件)</small></h1>
-<h2>商品ジャンルで一覧を表示する</h2>
+<h3>商品一覧<small>(全<%= @products.count %>件)</small></h3>
+<h5>商品ジャンルで一覧を表示する</h5>
 <div class ="genre">
   <% @genres.each do |genre| %>
    <%= link_to genre.name,genre_path(genre.id) %>
