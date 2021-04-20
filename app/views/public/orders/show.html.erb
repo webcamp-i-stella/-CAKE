@@ -1,2 +1,66 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<h2>注文履歴詳細</h2>
+<p>注文情報詳細</p>
+<table>
+  <tbody>
+    <tr>
+      <td>注文日</td>
+      <td><%= @order.created_at %></td>
+    </tr>
+    <tr>
+      <td>配送先</td>
+      <td>
+        <%= @order.order_postal_code %><br>
+        <%= @order.order_address %><br>
+        <%= @order.order_name %>
+      </td>
+    </tr>
+    <tr>
+      <td>支払方法</td>
+      <td><%= @order.payment_method %></td>
+    </tr>
+    <tr>
+      <td>ステータス</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<p>請求情報</p>
+<table>
+  <tbody>
+    <tr>
+      <td>商品合計</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>配送料</td>
+      <td>800</td>
+    </tr>
+    <tr>
+      <td>ご請求額</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>注文内容</p>
+<table>
+  <thead>
+    <tr>
+      <th>商品</th>
+      <th>単価（税込）</th>
+      <th>個数</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <% CartProduct.all.each do |p| %>
+  <tbody>
+    <tr>
+      <th><%= p.product.name %></th>
+      <th><%= p.product.no_tax_price * 1.1 %></th>
+      <th><%= p.cart_count %></th>
+      <th><%= p.product.no_tax_price * 1.1 * p.cart_count %></th>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
+<%= cart_product.cart_count %>

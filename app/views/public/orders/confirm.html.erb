@@ -17,5 +17,21 @@
   <p>請求金額</p>
     <p>【検討中】</p>
 
+<%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
+    <%= f.fields_for :order_details, @order.order_details.build do |c| %>
+      <%= c.hidden_field :order_count, :value =>  @cart_product.cart_count %>
+    <% end %>
+    <%= f.hidden_field :payment_method, :value => @order.payment_method %>
+    <%= f.hidden_field :order_postal_code, :value => @order.order_postal_code %>
+    <%= f.hidden_field :order_address, :value => @order.order_address %>
+    <%= f.hidden_field :order_name, :value => @order.order_name %>
 
-  z
+    <p>支払い方法</p>
+      <%= @order.payment_method %>
+    <p>お届け先</p>
+      <%= @order.order_postal_code %>
+      <%= @order.order_address %>
+      <%= @order.order_name %>
+    <%= f.submit "注文を確定する" %>
+  <% end %>
+<% end %>

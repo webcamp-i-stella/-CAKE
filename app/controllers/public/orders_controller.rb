@@ -2,7 +2,8 @@ class Public::OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @order_detail = @order.order_details.build
+    @order.order_details.build
+    @cart_product = CartProduct.find_by(params[:id])
   end
 
   def confirm
@@ -18,6 +19,7 @@ class Public::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    @cart_product = CartProduct.find_by(params[:id])
 
     if params[:order][:address_option] == "0"
       @order.order_postal_code = current_customer.postal_code
@@ -47,7 +49,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-     @order = Order.find(params[:id])
+    @order = Order.find(params[:id])
+    customer = @order.customer
+    @cart_product = customer.cart_products.find_by(params[:cart_count])
   end
 
 

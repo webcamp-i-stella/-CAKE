@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  end
   scope module: :public do
     root 'homes#top'
     get 'orders/complete' => 'orders#complete'
