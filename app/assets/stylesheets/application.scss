@@ -15,8 +15,63 @@
  */
  @import "bootstrap";
 
-#new-product {
-  position: fixed;
-  right: 50px;
-  top: 150px;
+ ul {
+   list-style: none;
+ }
+
+ .log-in-title {
+   width: 150px;
+   background-color: #dddddd;
+   text-align: center;
+   margin-bottom: 30px;
+ }
+
+ .customer-log-in {
+   font-size: 20px;
+   background-color: #dddddd;
+   text-align: center;
+   width: 300px;
+   margin-bottom: 30px;
+   margin-left: 20px;
+   font-size: 15px;
+ }
+
+.customer-sign-up {
+  font-size: 20px;
+  background-color: #dddddd;
+  text-align: center;
+  width: 300px;
+  margin-bottom: 30px;
+  margin-left: 20px;
+  margin-top: 30px;
+}
+
+.customer-already-signup {
+   width: 250px;
+   background-color: #dddddd;
+   text-align: center;
+   margin-bottom: 30px;
+   margin-top: 30px;
+}
+
+.castomer-withdraw {
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.sign-up-title, .customer-mypage, .customer-edit, .shipping-index, .log-in-admin, .customer-index {
+  width: 200px;
+  background-color: #dddddd;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.customer-show  {
+  width: 350px;
+  background-color: #dddddd;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }

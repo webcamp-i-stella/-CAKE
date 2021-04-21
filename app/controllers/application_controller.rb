@@ -4,17 +4,14 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.is_a?(AdminUser)
-        admin_products_path #ログイン後は注文履歴一覧に遷移、admin_orderの変数が出来次第
+        admin_orders_path
     else
         root_path
     end
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    if resource_or_scope == :admin_user
-        new_admin_user_session_path
-    else
-        root_path
-    end
+    return new_admin_user_session_path if resource_or_scope == :admin_user
+    root_path
   end
 end
