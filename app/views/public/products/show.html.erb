@@ -1,20 +1,20 @@
 <div class="container">
-  <div class="row">
+  <div class="row mt-5">
     <div class="col-offset-2"></div>
-    
+
     <div class="col-5">
       <%= attachment_image_tag @product, :image,:fill,100,100, format: 'jpeg',fallback: "no_image.png",size:'200x200'  %>
     </div>
-    
+
     <div class="col-5">
       <h3><%= @product.name %></h3>
       <p><%= @product.discription %></p>
       <h3>¥<%= ((@product.no_tax_price.to_i * 1.1).round(2)).ceil %><small>(税込)</small></h3>
-      
+
   <%= form_with(model: @cart_product,url:'/cart_products',local:true) do |f| %>
     <%= f.select :cart_count, options_for_select(((1..20).to_a)),{ include_blank: '個数選択'} %>
     <%= f.hidden_field :product_id, value: @product.id %>
-    <%= f.submit "カートに入れる", class: "btn btn-success" %>
+    <%= f.submit "カートに入れる", class: "btn btn-success ml-2" %>
   <% end %>
     </div>
   </div>
