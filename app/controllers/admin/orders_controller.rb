@@ -17,6 +17,6 @@ class Admin::OrdersController < ApplicationController
   
   private
     def order_status_params
-      params.require(:order).permit(:order_status).merge(order_status: params[:order][:order_status].to_i)
+      params.require(:order).permit(:order_status)
     end
 end

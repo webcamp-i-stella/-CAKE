@@ -4,7 +4,7 @@ class Order < ApplicationRecord
     accepts_nested_attributes_for :order_details
 
 
-    validates_acceptance_of :confirming, allow_nil: false
+    validates_acceptance_of :confirming, allow_nil: false, on: :create
     after_validation :check_confirming
 
     def check_confirming
@@ -18,7 +18,7 @@ class Order < ApplicationRecord
     validates :payment_method, presence: true
 
     enum order_status: {入金待ち: 0, 入金確認: 1, 製作中: 2, 発送準備中: 3, 発送済み: 4}, _prefix: true
-    enum payment_method: {クレジットカード:1, 銀行振込:2}, _prefix: true
+    enum payment_method: {クレジットカード:1, 銀行振込:2}
 
 
 
