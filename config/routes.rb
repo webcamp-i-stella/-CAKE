@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  end
   scope module: :public do
     root 'homes#top'
     get 'orders/complete' => 'orders#complete'
@@ -31,10 +25,14 @@ Rails.application.routes.draw do
     resources :customers, except: [:new, :create, :destroy]
   end
 
-  devise_for :admin_users
-  devise_for :customers, controllers:{
-    registrations: 'customers/registrations',
-    sessions: 'customers/sessions'
-  }
+  Rails.application.routes.draw do
+    devise_for :admin_users, controllers:{
+      sessions: 'admin_users/sessions'
+    }
+    devise_for :customers, controllers:{
+      registrations: 'customers/registrations',
+      sessions: 'customers/sessions'
+    }
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
