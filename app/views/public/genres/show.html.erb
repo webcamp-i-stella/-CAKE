@@ -1,2 +1,8 @@
-<h1><%= @genre.name %><small>(全<%= @products.count %>件)</small></h1>
-<%= render "public/products/product", products_page: @products_page %>
+<div class ="container">
+  <div class ="row mt-5">
+    <div class ="col-md-12">
+     <h1><%= @genre.name %><small>(全<%= @products.count %>件)</small></h1>
+     <%= render "public/products/product", products_page: @products_page %>
+   </div>
+  </div>
+</div>
