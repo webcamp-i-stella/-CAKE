@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row">
+    <%= flash[:danger] %>
     <div class="col-10"><h4>ショッピングカート</h4></div>
     <div class="col-2"><%= link_to "カートを空にする", customers_cart_products_destroy_all_path, method: :delete, class: "btn btn-danger" %></div>
   </div>
@@ -25,7 +26,8 @@
               <%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'100' %>
               <%= cart_product.product.name %>
             </td>
-            <td><%= ((cart_product.product.no_tax_price.to_i * 1.1).round(2)).ceil %></td>
+            <td>
+              <%= ((cart_product.product.no_tax_price.to_i * 1.1).round(2)).ceil %></td>
             <td>
               <%= form_with model: cart_product,local: true do |f| %>
                 <%= f.select :cart_count, options_for_select(((1..20).to_a),cart_product.cart_count)%>
@@ -41,7 +43,7 @@
     </div>
   </div>
 </div>
-  
+
   <div class="container">
     <div class="row">
       <div class="col-2">
