@@ -10,6 +10,14 @@ class Public::CartProductsController < ApplicationController
   def create
     @cart_product = CartProduct.new(cart_product_params)
     @cart_product.customer_id = current_customer.id
+
+    if @cart_product.save
+      redirect_to cart_products_path
+    else
+      flash.now[:danger] = "※商品の個数を選択してください"
+      render :index
+    end
+
     @cart_products = current_customer.cart_products.all
     @cart_products.each do |cart_product|
       if cart_product.product_id == @cart_product.product_id
@@ -18,8 +26,7 @@ class Public::CartProductsController < ApplicationController
         @cart_product.delete
       end
     end
-    @cart_product.save
-    redirect_to cart_products_path
+
   end
 
   def update
