@@ -14,3 +14,9 @@
  *= require_self
  */
  @import "bootstrap";
+
+#new-product {
+  position: fixed;
+  right: 50px;
+  top: 150px;
+}
