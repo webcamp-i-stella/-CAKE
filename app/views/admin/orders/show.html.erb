@@ -29,65 +29,63 @@
     <tr>
       <td>注文ステータス</td>
       <td><%= form_with model: @order, url:admin_order_path(@order), local: true do |f| %>
-          <%= f.select :order_status, [["入金待ち"], ["入金確認"], ["製作中"], ["発送準備中"], ["発送済み"]] %>
-          <%= f.submit "更新", class: "btn btn-primary" %>
+          <%= f.select :order_status, Order.order_statuses %>
+          <%= f.submit "更新", class: "btn btn-success" %>
           <% end %>
       </td>
     </tr>
   </tbody>
 </table>
 
-<table class="table">
-  <thead>
-    <th>商品名</th>
-    <th>単価（税込）</th>
-    <th>数量</th>
-    <th>小計</th>
-    <th>制作ステータス</th>
-  </thead>
 
-  <tbody>
-    <tr>
-      <td><% @order.order_details.each do |order_detail| %>
-          <%= order_detail.product.name %>
-          <% end %>
-      </td>
-      <td><% @order.order_details.each do |order_detail| %>
-          <%= order_detail.tax_price %>
-          <% end %>
-      </td>
-      <td>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <table class="table">
+        <thead class="thead-light">
+          <th>商品名</th>
+          <th>単価（税込）</th>
+          <th>数量</th>
+          <th>小計</th>
+          <th>制作ステータス</th>
+          <th></th>
+        </thead>
+        <tbody>
           <% @order.order_details.each do |order_detail| %>
-          <%= order_detail.count %>
+            <tr>
+              <td><%= order_detail.product.name %></td>
+              <td><%= order_detail.tax_price %></td>
+              <td><%= order_detail.order_count %></td>
+              <td><%= order_detail.tax_price %></td>
+              <td></td>
+              <td></td>
+            </tr>
           <% end %>
-      </td>
-      <td><% @order.order_details.each do |order_detail| %>
-          <%= order_detail.tax_price %>
-          <% end %>
-      </td>
-      <td>     </td>
-    </tr>
-  </tbody>
-</table>
-
-<table class="table">
-  <thead>
-    <th></th>
-    <th></th>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>商品合計</td>
-      <td><%= @order.total_price %>円</td>
-    </tr>
-    <tr>
-      <td>送料</td>
-      <td><%= @order.shipping_fee.to_i %>円</td>
-    </tr>
-    <tr>
-      <td>請求額合計</td>
-      <td><%= @order.total_price.to_i + @order.shipping_fee.to_i %>円</td>
-    </tr>
-  </tbody>
-</table> 
+        </tbody>
+      </table>  
+    </div>
+    
+    <div class="col-4">
+      <table class="table">
+        <thead>
+          <th></th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>商品合計</td>
+            <td><%= @order.order_details.sum(:tax_price) %>円</td>
+          </tr>
+          <tr>
+            <td>送料</td>
+            <td><%= @order.shipping_fee.to_i %>円</td>
+          </tr>
+          <tr>
+            <td>請求額合計</td>
+            <td><%=  @order.order_details.sum(:tax_price) + @order.shipping_fee.to_i %>円</td>
+          </tr>
+        </tbody>
+      </table> 
+    </div>
+  </div>
+</div>
