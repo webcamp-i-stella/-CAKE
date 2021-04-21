@@ -42,14 +42,6 @@
   margin-top: 30px;
 }
 
-.sign-up-title {
-   width: 200px;
-   background-color: #dddddd;
-   text-align: center;
-   margin-bottom: 30px;
-   margin-top: 30px;
- }
-
 .customer-already-signup {
    width: 250px;
    background-color: #dddddd;
@@ -58,30 +50,22 @@
    margin-top: 30px;
 }
 
-.customer-mypage {
-  width: 200px;
-  background-color: #dddddd;
-  text-align: center;
-  margin-bottom: 30px;
-  margin-top: 30px;
-}
-
-.customer-edit {
-  width: 200px;
-  background-color: #dddddd;
-  text-align: center;
-  margin-bottom: 30px;
-  margin-top: 30px;
-}
-
 .castomer-withdraw {
   margin: 0 auto;
   text-align: center;
   padding-top: 50px;
 }
 
-.shipping-index {
+.sign-up-title, .customer-mypage, .customer-edit, .shipping-index, .log-in-admin, .customer-index {
   width: 200px;
+  background-color: #dddddd;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.customer-show  {
+  width: 350px;
   background-color: #dddddd;
   text-align: center;
   margin-bottom: 30px;
