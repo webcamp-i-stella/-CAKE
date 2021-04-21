@@ -11,7 +11,7 @@
     <% @orders.each do |order| %>
     <tr>
     <td><%= link_to order.created_at, admin_order_path(order) %></td>
-    <td><%#= order.customer.family_name %><%#= order.customer.first_name %></td>
+    <td><% order.customer.family_name %><%= order.customer.first_name %></td>
     <td><%= order.order_details.sum(:order_count) %></td>
     <td><%= order.order_status %></td>
     </tr>
