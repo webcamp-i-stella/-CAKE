@@ -1,9 +1,17 @@
-<h3>商品一覧<small>(全<%= @products.count %>件)</small></h3>
-<h5>商品ジャンルで一覧を表示する</h5>
-<div class ="genre">
-  <% @genres.each do |genre| %>
-   <%= link_to genre.name,genre_path(genre.id) %>
-   <% end %>
+<div class ="container">
+  <div class ="row mt-5">
+    <div class ="col-md-12">
+      <h5>商品ジャンルで一覧を表示する</h5>
+     <div class ="genre">
+      <% @genres.each do |genre| %>
+      <%= link_to genre.name,genre_path(genre.id) %>
+      <% end %>
+
+      <h2 class="mt-3 mb-3", style ="text-align:center;">商品一覧<small>(全<%= @products.count %>件)</small></h2>
+     </div>
+    </div>
+  </div>
 </div>
+
 
 <%= render "product", products_page: @products_page %>
