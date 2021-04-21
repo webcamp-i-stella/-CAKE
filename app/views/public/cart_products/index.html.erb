@@ -1,14 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-10"><h4>ショッピングカート</h4></div>
-    <div class="col-2"><%= link_to "カートを空にする", customers_cart_products_destroy_all_path, method: :delete, class: "btn btn-danger" %></div>
+    <div class="col-4"><h5>ショッピングカート</h5></div>
+    <div class="offset-6 col-2"><%= link_to "カートを空にする", customers_cart_products_destroy_all_path, method: :delete, class: "btn btn-danger" %></div>
   </div>
-</div>
 
-<div class="container">
+
   <div class="row">
     <div class="col-12">
-      <table class="table">
+      <table class="table table-bordered">
         <thead class="thead-light">
           <tr>
             <th>商品名</th>
@@ -22,7 +21,7 @@
           <% current_customer.cart_products.each do |cart_product| %>
           <tr>
             <td>
-              <%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'100' %>
+              <%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'70' %>
               <%= cart_product.product.name %>
             </td>
             <td><%= ((cart_product.product.no_tax_price.to_i * 1.1).round(2)).ceil %></td>
@@ -40,22 +39,20 @@
       </table>
     </div>
   </div>
-</div>
   
-  <div class="container">
+  
     <div class="row">
-      <div class="col-2">
+      <div class="offset-1 col-2">
         <%= link_to "買い物を続ける", products_path, class: "btn btn-primary" %>
       </div>
-      <div class="col-8"></div>
-      <div class="col-2">
+      <div class="offset-7 col-2">
         <table class="table-bordered">
-          <td>合計金額</td>
-          <td><%= @total_price %></td>
+          <th class="table-secondary">合計金額</th>
+          <th><%= @total_price %></th>
         </table>
       </div>
     </div>
-  </div>
+  
 
 <div class="container">
   <div class="row">
