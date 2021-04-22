@@ -68,9 +68,9 @@
             </tr>
           <% end %>
         </tbody>
-      </table>  
+      </table>
     </div>
-    
+
     <div class="col-4">
       <table class="table">
         <thead>
@@ -91,7 +91,7 @@
             <td><%=  @order.order_details.sum(:tax_price) + @order.shipping_fee.to_i %>円</td>
           </tr>
         </tbody>
-      </table> 
+      </table>
     </div>
   </div>
 </div>
