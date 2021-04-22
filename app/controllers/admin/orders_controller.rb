@@ -1,7 +1,15 @@
 class Admin::OrdersController < ApplicationController
   def index
-    @orders = Order.all
-    @orders = Order.all.page(params[:page])
+    case params[:order_sort]
+    when "0"
+      @orders = Order.all
+    when "1"
+     @customer = Customer.find_by(params[:customer_id])
+     @orders = @customer.orders
+    else
+      @orders = Order.all
+    end
+      @orders_page = Order.all.page(params[:page])
   end
 
   def show
@@ -11,6 +19,9 @@ class Admin::OrdersController < ApplicationController
     @order_detail = @order.order_details.each do |order_detail|
       if order_detail.production_status == "製作中"
           @order.order_status = "製作中"
+      elsif
+        @order.order_status == "入金待ち"
+        order_detail.production_status = "製作不可"
       elsif
         @order.order_status == "入金確認"
         order_detail.production_status = "製作待ち"
