@@ -4,7 +4,7 @@ class Admin::OrdersController < ApplicationController
     when "0"
       @orders = Order.all
     when "1"
-     @customer = Customer.find_by(params[:customer_id])
+     @customer = Customer.find(params[:customer_id])
      @orders = @customer.orders
     else
       @orders = Order.all
@@ -41,7 +41,6 @@ class Admin::OrdersController < ApplicationController
     @order_detail = @order.order_details.each do |order_detail|
       if order_detail.production_status == "製作中"
           @order.order_status = "製作中"
-          @order.order_status.update(order_status_params)
       elsif
         @order.order_status == "入金確認"
         order_detail.production_status = "製作待ち"
