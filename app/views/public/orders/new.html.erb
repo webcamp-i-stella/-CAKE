@@ -2,10 +2,9 @@
   <div class ="row">
     <div class="col-md-9 mt-5">
 
-
-<% if @order.confirming.blank? %>
-   <h3 class ="title">注文情報入力</h3>
-    <%= form_with model: @order, method: :post, local: true do |f| %>
+   <% if @order.confirming.blank? %>
+    <h3 class ="title">注文情報入力</h3>
+      <%= form_with model: @order, method: :post, local: true do |f| %>
     　　 　<!--送料の指定-->
          <%= f.hidden_field :shipping_fee, :value => 800 %>
       <h4>支払い方法</h4>
@@ -66,22 +65,29 @@
         </label>
       </div>
       </div>
-
-      <div class ="btn">
-        <%= f.submit '確認画面へ進む',class:"btn btn-primary btn-lg" %>
-      </div>
+     </div>
+    </div>
+　<div class="row">
+    <%= f.submit '確認画面へ進む',class:"btn btn-primary btn-lg" %>
+  </div>
     <% end %>
-<% else %>
+  <% else %>
+</div>
 
-<h3 class ="title mb-3">注文情報確認</h3>
-  <table class="table mb-5">
-  <thead>
-    <th>商品名</th>
-    <th>単価（税込）</th>
-    <th>数量</th>
-    <th>小計</th>
-  </thead>
-  <tbody>
+
+
+<div class ="container">
+  <h3 class ="title mb-3 ml-3">注文情報確認</h3>
+  <div class ="row">
+    <div class ="col-md-8 ">
+    <table class="table mb-5">
+    <thead class = "thead-light">
+      <th>商品名</th>
+      <th>単価（税込）</th>
+      <th>数量</th>
+      <th>小計</th>
+    </thead>
+    <tbody>
     <% current_customer.cart_products.each do |p| %>
     <tr>
       <td> <%= attachment_image_tag p.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'100' %>
@@ -92,12 +98,14 @@
     </tr>
      <% end %>
   </tbody>
-</table>
+ </table>
+</div>
 
+<div class ="col-md-3 offset-1">
 <table class="table">
   <tbody>
     <tr>
-      <td>送料</td>
+      <td class>送料</td>
       <td><%= @order.shipping_fee.to_i %></td>
     </tr>
     <tr>
@@ -110,12 +118,13 @@
         <%= @total_price %>
       </td>
     </tr>
-    <td>請求金額</td>
-    <td><%= @order.shipping_fee.to_i + @total_price %></td>
-  </tbody>
-</table>
+       <td>請求金額</td>
+       <td><%= @order.shipping_fee.to_i + @total_price %></td>
+      </tbody>
+     </table>
+  </div>
 
-
+<div class ="form">
   <%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
     <% current_customer.cart_products.each do |cart_product| %>
       <%= f.fields_for :order_details, @order.order_details.build do |c| %>
@@ -142,11 +151,13 @@
       <div class="address_name"><%= @order.order_address %></div>
       <div class="address_name"><%= @order.order_name %></div>
     </div>
-
-    <%= f.submit "注文を確定する" , class: "btn btn-success" %>
+ </div>
+  </div>
+   <div class ="row">
+     <%= f.submit "注文を確定する" , class: "btn btn-success" %>
+    </div>
     <% end %>
   <% end %>
-
-      </div>
-  </div>
 </div>
+
+
