@@ -1,14 +1,19 @@
 <div class="container">
-  <div class="row">
-    <div class="col-10"><h4>ショッピングカート</h4></div>
-    <div class="col-2"><%= link_to "カートを空にする", customers_cart_products_destroy_all_path, method: :delete, class: "btn btn-danger" %></div>
-  </div>
-</div>
 
-<div class="container">
+  <div class="row mt-3">
+    <div class="flash_message">
+      <%= flash[:danger] %>
+    </div>
+
+    <div class="col-10 mt-3 mb-3"><h3 class ="title">ショッピングカート</h3></div>
+    <div class="col-2 mt-3 mb-3"><%= link_to "カートを空にする", customers_cart_products_destroy_all_path, method: :delete, class: "btn btn-danger" %></div>
+
+  </div>
+
+
   <div class="row">
     <div class="col-12">
-      <table class="table">
+      <table class="table table-bordered">
         <thead class="thead-light">
           <tr>
             <th>商品名</th>
@@ -22,10 +27,11 @@
           <% current_customer.cart_products.each do |cart_product| %>
           <tr>
             <td>
-              <%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'100' %>
+              <%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'70' %>
               <%= cart_product.product.name %>
             </td>
-            <td><%= ((cart_product.product.no_tax_price.to_i * 1.1).round(2)).ceil %></td>
+            <td>
+              <%= ((cart_product.product.no_tax_price.to_i * 1.1).round(2)).ceil %></td>
             <td>
               <%= form_with model: cart_product,local: true do |f| %>
                 <%= f.select :cart_count, options_for_select(((1..20).to_a),cart_product.cart_count)%>
@@ -40,26 +46,29 @@
       </table>
     </div>
   </div>
+
 </div>
-  
+
   <div class="container">
     <div class="row">
-      <div class="col-2">
-        <%= link_to "買い物を続ける", products_path, class: "btn btn-primary" %>
+      <div class="col-3">
+        <div class="ml-5">
+          <%= link_to "買い物を続ける", products_path, class: "btn btn-primary" %>
+        </div>
       </div>
-      <div class="col-8"></div>
+      <div class="col-7"></div>
       <div class="col-2">
         <table class="table-bordered">
-          <td>合計金額</td>
+          <td class="table-secondary">合計金額</td>
           <td><%= @total_price %></td>
         </table>
       </div>
     </div>
-  </div>
+  
 
 <div class="container">
   <div class="row">
-    <div class="mx-auto">
+    <div class="mx-auto mt-5">
       <%= link_to '情報入力に進む' , orders_new_path, class: "btn btn-success" %>
     </div>
   </div>
