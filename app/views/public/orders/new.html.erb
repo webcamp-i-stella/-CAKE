@@ -46,7 +46,7 @@
      <div class ="new_address">
         <label></br>
           <%= f.radio_button :address_option, 2 %>新しいお届け先</br>
-          <table class="table">
+          <table class="table table-borderless">
             <tbody>
               <tr>
                 <td>郵便番号(ハイフンなし)</td>
@@ -64,13 +64,12 @@
           </table>
         </label>
       </div>
-      </div>
-     </div>
+      <%= f.submit '確認画面へ進む', class: "btn btn-primary" %>
+      <% end %>
     </div>
-　<div class="row">
-    <%= f.submit '確認画面へ進む',class:"btn btn-primary btn-lg" %>
   </div>
-    <% end %>
+</div>
+
   <% else %>
 </div>
 
@@ -102,14 +101,14 @@
 </div>
 
 <div class ="col-md-3 offset-1">
-<table class="table">
+<table class="table table-bordered">
   <tbody>
     <tr>
-      <td class>送料</td>
+      <td class="table-secondary">送料</td>
       <td><%= @order.shipping_fee.to_i %></td>
     </tr>
     <tr>
-      <td>商品合計</td>
+      <td class="table-secondary">商品合計</td>
       <td>
         <% @total_price = 0 %>
         <% current_customer.cart_products.each do |cart_product| %>
@@ -118,7 +117,7 @@
         <%= @total_price %>
       </td>
     </tr>
-       <td>請求金額</td>
+       <td class="table-secondary">請求金額</td>
        <td><%= @order.shipping_fee.to_i + @total_price %></td>
       </tbody>
      </table>
@@ -132,8 +131,8 @@
         <%= c.hidden_field :order_count, :value => cart_product.cart_count %>
         <%= c.hidden_field :product_id, :value => product.id %>
         <%= c.hidden_field :tax_price, :value => (((cart_product.product.no_tax_price.to_i * 1.1) * cart_product.cart_count).round(2)).ceil %>
+      <% end %>
     <% end %>
-  <% end %>
         <%= f.hidden_field :payment_method, :value => @order.payment_method %>
         <%= f.hidden_field :order_postal_code, :value => @order.order_postal_code %>
         <%= f.hidden_field :order_address, :value => @order.order_address %>
@@ -151,13 +150,10 @@
       <div class="address_name"><%= @order.order_address %></div>
       <div class="address_name"><%= @order.order_name %></div>
     </div>
- </div>
-  </div>
-   <div class ="row">
-     <%= f.submit "注文を確定する" , class: "btn btn-success" %>
-    </div>
+    <%= f.submit "注文を確定する" , class: "btn btn-success mx-auto" %>
     <% end %>
-  <% end %>
+ </div>
+ <% end %>
 </div>
 
 

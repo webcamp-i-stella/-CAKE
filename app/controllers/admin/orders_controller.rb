@@ -1,8 +1,10 @@
 class Admin::OrdersController < ApplicationController
   def index
     case params[:order_sort]
-    when "2"
-    @customer = Customer.find_by(params[:customer_id])
+    when "0"
+      @orders = Order.all
+    when "1"
+     @customer = Customer.find(params[:customer_id])
      @orders = @customer.orders
     else
       @orders = Order.all
@@ -18,9 +20,11 @@ class Admin::OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @order.update(order_status_params)
-    
-      @order.order_details.each do |order_detail|
-      if 
+
+    @order_detail = @order.order_details.each do |order_detail|
+      if order_detail.production_status == "製作中"
+          @order.order_status = "製作中"
+      elsif
         @order.order_status == "入金確認"
         order_detail.production_status = "製作待ち"
         order_detail.save
