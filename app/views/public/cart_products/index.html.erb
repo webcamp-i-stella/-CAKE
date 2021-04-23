@@ -1,2 +1,76 @@
-<h1>Public::CartProducts#index</h1>
-<p>Find me in app/views/public/cart_products/index.html.erb</p>
+<div class="container">
+
+  <div class="row mt-3">
+    <div class="flash_message">
+      <%= flash[:danger] %>
+    </div>
+
+    <div class="col-10 mt-3 mb-3"><h3 class ="title">ショッピングカート</h3></div>
+    <div class="col-2 mt-3 mb-3"><%= link_to "カートを空にする", customers_cart_products_destroy_all_path, method: :delete, class: "btn btn-danger" %></div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>商品名</th>
+            <th>単価（税込）</th>
+            <th>数量</th>
+            <th>小計</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% current_customer.cart_products.each do |cart_product| %>
+          <tr>
+            <td>
+              <%= attachment_image_tag cart_product.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'70' %>
+              <%= cart_product.product.name %>
+            </td>
+            <td>
+              <%= ((cart_product.product.no_tax_price.to_i * 1.1).round(2)).ceil %></td>
+            <td>
+              <%= form_with model: cart_product,local: true do |f| %>
+                <%= f.select :cart_count, options_for_select(((1..20).to_a),cart_product.cart_count)%>
+              <%= f.submit "変更" , class: "btn btn-success" %>
+              <% end %>
+            </td>
+            <td><%= ((cart_product.product.no_tax_price.to_i * 1.1 * (cart_product.cart_count)).round(2)).ceil %></td>
+            <td><%= link_to "削除する", cart_product_path(cart_product.id),method: :delete, class: "btn btn-danger" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <div class="ml-5">
+          <%= link_to "買い物を続ける", root_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+
+      <div class="offset-5 col-4">
+        <table>
+          <th class ="total_price_text">合計金額</th>
+          <th class ="total_price"><%= @total_price %></th>
+
+        </table>
+      </div>
+    </div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="mx-auto mt-5">
+      <%= link_to '情報入力に進む' , orders_new_path, class: "btn btn-success" %>
+    </div>
+  </div>
+</div>
+

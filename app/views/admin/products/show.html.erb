@@ -1,2 +1,51 @@
-<h1>Admin::Products#show</h1>
-<p>Find me in app/views/admin/products/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-2 offset-1">
+      <h4 class="products-index">商品詳細</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 offset1">
+      <%= attachment_image_tag @product, :image,:fill,100,100, format: 'jpeg',fallback: "no_image.png",size:'200x200' %>
+    </div>
+    <div class="col-6">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td>商品名</td>
+            <td><%= @product.name %></td>
+          </tr>
+          <tr>
+            <td>商品説明</td>
+            <td><%= @product.discription %></td>
+          </tr>
+          <tr>
+            <td>ジャンル名</td>
+            <td><%= @product.genre.name %></td>
+          </tr>
+          <tr>
+            <td>税込価格</br>(税抜価格)</td>
+            <td>
+              <%= ((@product.no_tax_price.to_i * 1.1)).ceil %>(<%= @product.no_tax_price %>)円
+            </td>
+          </tr>
+          <tr>
+            <td>販売ステータス</td>
+            <td>
+              <% if @product.is_active  %>
+                <p class="text-success">販売中</p>
+              <% else %>
+                <p class="text-muted">販売停止中</p>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2 offset-5">
+      <%= link_to "編集する",edit_admin_product_path(@product.id), class: "btn btn-success" %>
+    </div>
+  </div>
+</div>

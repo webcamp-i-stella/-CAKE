@@ -1,0 +1,16 @@
+<div class ="container">
+  <div class ="row mt-5">
+    <div class ="col-md-12">
+     <div class ="genre">
+      <% @genres.each do |genre| %>
+      <%= link_to genre.name,genre_path(genre.id), class: "btn btn-info" %>
+      <% end %>
+
+      <h3>商品一覧<small>(全<%= @products.count %>件)</small></h3>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+<%= render "product", products_page: @products_page %>

@@ -8,7 +8,7 @@ class CreateOrders < ActiveRecord::Migration[5.2]
       t.string :order_postal_code
       t.string :order_address
       t.string :order_name
-      t.integer :order_status
+      t.integer :order_status, default: 0
 
       t.timestamps
     end

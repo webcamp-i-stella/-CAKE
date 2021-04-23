@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 col-offset-3">
+      <h4 class="customer-edit">会員情報編集</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-7">
+      <%= form_with model:@customer, url:customers_path(@customer), local:true do |f| %>
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td>氏名</td>
+              <td><%= f.text_field :family_name, autofocus: true %></td>
+              <td><%= f.text_field :first_name, autofocus: true %></td>
+            </tr>
+            <tr>
+              <td>フリガナ</td>
+              <td><%= f.text_field :family_name_kana, autofocus: true %></td>
+              <td><%= f.text_field :first_name_kana, autofocus: true %></td>
+            </tr>
+            <tr>
+              <td><%= f.label :"郵便番号" %></td>
+              <td><%= f.text_field :postal_code, autofocus: true %></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><%= f.label :"住所" %></td>
+              <td><%= f.text_field :address, autofocus: true, size: 30 %></td>
+            </tr>
+            <tr>
+              <td><%= f.label :"電話番号" %></td>
+              <td><%= f.text_field :phone, autofocus: true %></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><%= f.label :メールアドレス %></td>
+              <td><%= f.email_field :email, autofocus: true %></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><%= f.submit "編集内容を保存", class: 'btn btn-success' %></td>
+              <td><%= link_to "退会する", customers_check_path, class: 'btn btn-danger' %></td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

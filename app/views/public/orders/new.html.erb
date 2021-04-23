@@ -1,0 +1,159 @@
+<div class ="container">
+  <div class ="row">
+    <div class="col-md-9 mt-5">
+
+   <% if @order.confirming.blank? %>
+    <h3 class ="title">注文情報入力</h3>
+      <%= form_with model: @order, method: :post, local: true do |f| %>
+    　　 　<!--送料の指定-->
+         <%= f.hidden_field :shipping_fee, :value => 800 %>
+      <h4>支払い方法</h4>
+       <div class ="item">
+        <label>
+          <%= f.radio_button :payment_method, :クレジットカード %>クレジットカード
+        </label></br>
+        <label>
+          <%= f.radio_button :payment_method, :銀行振込 %>銀行振込
+        </label>
+        </div>
+
+      <h4 class ="mt-4">お届け先</h4>
+      <div class ="item">
+      <div class ="cosomer_address">
+          <label>
+          <%= f.radio_button :address_option, 0 %>
+          <%= f.hidden_field :order_postal_code, :value => current_customer.postal_code %>
+          <%= f.hidden_field :order_address, :value => current_customer.address %>
+          <%= f.hidden_field :order_name, :value => current_customer.family_name + current_customer.first_name %>
+          ご自身の住所</br>
+          〒<%= current_customer.postal_code %><%= current_customer.address %></br>
+          <%= current_customer.family_name %><%= current_customer.first_name %>
+        </label>
+      </div>
+
+      <div class ="record_address">
+        <label></br>
+          <%= f.radio_button :address_option, 1 %>登録済住所から選択</br>
+          <%= f.select :address, current_customer.shipping_addresses.map{|a| ["〒" + a.postal_code + " " + a.address + " " + a.name]} %>
+            <% current_customer.shipping_addresses.each do |shipping_address| %>
+              <%= f.hidden_field :order_address, :value => shipping_address.address %>
+              <%= f.hidden_field :order_postal_code, :value => shipping_address.postal_code %>
+              <%= f.hidden_field :order_name, :value => shipping_address.name %>
+            <% end %>
+        </label>
+      </div>
+
+     <div class ="new_address">
+        <label></br>
+          <%= f.radio_button :address_option, 2 %>新しいお届け先</br>
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td>郵便番号(ハイフンなし)</td>
+                <td><%= f.text_field :order_postal_code %></td>
+              </tr>
+              <tr>
+                <td>住所</td>
+                <td><%= f.text_field :order_address,size: 50 %></td>
+              </tr>
+              <tr>
+                <td>宛名</td>
+                <td><%= f.text_field :order_name %></td>
+              </tr>
+            </tbody>
+          </table>
+        </label>
+      </div>
+      <%= f.submit '確認画面へ進む', class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+  <% else %>
+</div>
+
+
+
+<div class ="container">
+  <h3 class ="title mb-3 ml-3">注文情報確認</h3>
+  <div class ="row">
+    <div class ="col-md-8 ">
+    <table class="table mb-5">
+    <thead class = "thead-light">
+      <th>商品名</th>
+      <th>単価（税込）</th>
+      <th>数量</th>
+      <th>小計</th>
+    </thead>
+    <tbody>
+    <% current_customer.cart_products.each do |p| %>
+    <tr>
+      <td> <%= attachment_image_tag p.product,:image, :fill, 200, 200,format: 'jpeg', fallback: "no_image.png",size:'100' %>
+           <%= p.product.name %></td>
+      <td><%= ((p.product.no_tax_price * 1.1).round(2)).ceil%></td>
+      <td><%= p.cart_count %></td>
+      <td><%= ((p.cart_count * (p.product.no_tax_price * 1.1).round(2))).ceil %></td>
+    </tr>
+     <% end %>
+  </tbody>
+ </table>
+</div>
+
+<div class ="col-md-3 offset-1">
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <td class="table-secondary">送料</td>
+      <td><%= @order.shipping_fee.to_i %></td>
+    </tr>
+    <tr>
+      <td class="table-secondary">商品合計</td>
+      <td>
+        <% @total_price = 0 %>
+        <% current_customer.cart_products.each do |cart_product| %>
+        <% @total_price += ((cart_product.product.no_tax_price.to_i * 1.1 * (cart_product.cart_count).round(2)).round) %>
+        <% end %>
+        <%= @total_price %>
+      </td>
+    </tr>
+       <td class="table-secondary">請求金額</td>
+       <td><%= @order.shipping_fee.to_i + @total_price %></td>
+      </tbody>
+     </table>
+  </div>
+
+<div class ="form">
+  <%= form_with model: @order, url:orders_confirm_path,local: true do |f| %>
+    <% current_customer.cart_products.each do |cart_product| %>
+      <%= f.fields_for :order_details, @order.order_details.build do |c| %>
+        <% product = Product.find_by(id: cart_product.product_id) %>
+        <%= c.hidden_field :order_count, :value => cart_product.cart_count %>
+        <%= c.hidden_field :product_id, :value => product.id %>
+        <%= c.hidden_field :tax_price, :value => (((cart_product.product.no_tax_price.to_i * 1.1) * cart_product.cart_count).round(2)).ceil %>
+      <% end %>
+    <% end %>
+        <%= f.hidden_field :payment_method, :value => @order.payment_method %>
+        <%= f.hidden_field :order_postal_code, :value => @order.order_postal_code %>
+        <%= f.hidden_field :order_address, :value => @order.order_address %>
+        <%= f.hidden_field :order_name, :value => @order.order_name %>
+        <%= f.hidden_field :shipping_fee, :value => 800 %>
+
+    <div class="payment mt-5 mb-2">
+      <div class="payment_title">支払方法</div>
+      <div class="payment_method"><%= @order.payment_method %></div>
+    </div>
+
+    <div class="address mb-5">
+      <div class="address_title">お届け先</div>
+      <div class="address_name"><%= @order.order_postal_code %></div>
+      <div class="address_name"><%= @order.order_address %></div>
+      <div class="address_name"><%= @order.order_name %></div>
+    </div>
+    <%= f.submit "注文を確定する" , class: "btn btn-success mx-auto" %>
+    <% end %>
+ </div>
+ <% end %>
+</div>
+
+
